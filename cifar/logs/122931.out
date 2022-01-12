@@ -326,3 +326,571 @@ Training...
  -> Progress: 80 done!
  -> Progress: 100 done!
 Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.0490884408926415, 93.9298273657289, 99.92806905370844, 0.174232280448727, 0.174232280448727, 0.0, 0.0]
+Testing:  [0.013169243335723876, 88.82, 99.67, 0.3531751774251461, 0.3531751774251461, 0.0, 0.0]
+Best Acc:  89.52
+
+Epoch: [12 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04910573325193752, 94.04371803069054, 99.93406329923273, 0.16960124082653724, 0.16960124082653724, 0.0, 0.0]
+Testing:  [0.013186924457550049, 89.05, 99.61, 0.36255632027983664, 0.36255632027983664, 0.0, 0.0]
+Best Acc:  89.52
+
+Epoch: [13 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04923709762065917, 94.3486253196931, 99.92007672634271, 0.162210255089547, 0.162210255089547, 0.0, 0.0]
+Testing:  [0.013073563575744629, 89.2, 99.7, 0.3268811135739088, 0.3268811135739088, 0.0, 0.0]
+Best Acc:  89.52
+
+Epoch: [14 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04908502864105927, 94.26470588235294, 99.92806905370844, 0.16407597689982265, 0.16407597689982265, 0.0, 0.0]
+Testing:  [0.013143906593322754, 89.88, 99.66, 0.3196598983556032, 0.3196598983556032, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [15 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.049068507026223576, 94.46451406649616, 99.91887787723785, 0.15984418921534668, 0.15984418921534668, 0.0, 0.0]
+Testing:  [0.013221156597137452, 89.56, 99.57, 0.3316764052212238, 0.3316764052212238, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [16 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04902217272297501, 94.58639705882354, 99.9440537084399, 0.15501935014029597, 0.15501935014029597, 0.0, 0.0]
+Testing:  [0.013166875839233398, 88.66, 99.68, 0.36898922838270665, 0.36898922838270665, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [17 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04903684613649802, 94.48889066496163, 99.95404411764706, 0.16020961259217822, 0.16020961259217822, 0.0, 0.0]
+Testing:  [0.013224756717681885, 88.53, 99.64, 0.3677893967926502, 0.3677893967926502, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [18 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04909141838093243, 94.5488331202046, 99.91807864450128, 0.15836661618650721, 0.15836661618650721, 0.0, 0.0]
+Testing:  [0.013167400360107422, 89.66, 99.65, 0.3499761074781418, 0.3499761074781418, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [19 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.049102563077531504, 94.84494884910485, 99.94605179028133, 0.15110027149815083, 0.15110027149815083, 0.0, 0.0]
+Testing:  [0.013196704387664794, 89.15, 99.69, 0.3460324962437153, 0.3460324962437153, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [20 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04903315278270361, 94.57960358056266, 99.9440537084399, 0.15500237722226115, 0.15500237722226115, 0.0, 0.0]
+Testing:  [0.013214998245239258, 89.26, 99.72, 0.34845462292432783, 0.34845462292432783, 0.0, 0.0]
+Best Acc:  89.88
+
+Epoch: [21 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04908445058271403, 96.78868286445012, 99.97802109974424, 0.09998825181018361, 0.09998825181018361, 0.0, 0.0]
+Testing:  [0.013316867351531982, 91.26, 99.8, 0.2774415799230337, 0.2774415799230337, 0.0, 0.0]
+Best Acc:  91.26
+
+Epoch: [22 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04905551717714276, 97.43885869565217, 99.97002877237851, 0.08014631307567172, 0.08014631307567172, 0.0, 0.0]
+Testing:  [0.013213820457458496, 91.58, 99.81, 0.2744920588284731, 0.2744920588284731, 0.0, 0.0]
+Best Acc:  91.58
+
+Epoch: [23 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04902591058970107, 97.68102621483376, 99.98001918158567, 0.07324148922720376, 0.07324148922720376, 0.0, 0.0]
+Testing:  [0.013154983520507812, 91.78, 99.8, 0.2729812303930521, 0.2729812303930521, 0.0, 0.0]
+Best Acc:  91.78
+
+Epoch: [24 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04903560160371044, 97.71099744245524, 99.98401534526855, 0.06967890300714147, 0.06967890300714147, 0.0, 0.0]
+Testing:  [0.013283944129943848, 91.77, 99.8, 0.27608608201146123, 0.27608608201146123, 0.0, 0.0]
+Best Acc:  91.78
+
+Epoch: [25 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.049163018346137705, 98.01430626598466, 99.9880115089514, 0.06451095232878194, 0.06451095232878194, 0.0, 0.0]
+Testing:  [0.01315910816192627, 91.69, 99.81, 0.2764467398822308, 0.2764467398822308, 0.0, 0.0]
+Best Acc:  91.78
+
+Epoch: [26 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04900980361587251, 98.1369884910486, 99.99200767263427, 0.060656059690562966, 0.060656059690562966, 0.0, 0.0]
+Testing:  [0.013231370449066162, 91.95, 99.85, 0.27751548774540424, 0.27751548774540424, 0.0, 0.0]
+Best Acc:  91.95
+
+Epoch: [27 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04911853651256513, 98.25447570332481, 99.9880115089514, 0.05793157368040908, 0.05793157368040908, 0.0, 0.0]
+Testing:  [0.013235430717468261, 91.89, 99.83, 0.2782490751892328, 0.2782490751892328, 0.0, 0.0]
+Best Acc:  91.95
+
+Epoch: [28 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.0490838767927321, 98.27046035805627, 99.99200767263427, 0.055565267415417126, 0.055565267415417126, 0.0, 0.0]
+Testing:  [0.013181698322296143, 91.8, 99.81, 0.2816990538686514, 0.2816990538686514, 0.0, 0.0]
+Best Acc:  91.95
+
+Epoch: [29 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.0491725770408845, 98.27405690537084, 99.99000959079284, 0.055279413142891795, 0.055279413142891795, 0.0, 0.0]
+Testing:  [0.013191189765930176, 92.14, 99.78, 0.27636752627789973, 0.27636752627789973, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [30 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04908563657794767, 98.32121163682865, 99.99400575447571, 0.05375032619480282, 0.05375032619480282, 0.0, 0.0]
+Testing:  [0.013353722095489502, 91.95, 99.83, 0.28164589785039423, 0.28164589785039423, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [31 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.049066693581583554, 98.4283088235294, 99.99400575447571, 0.05034984056087558, 0.05034984056087558, 0.0, 0.0]
+Testing:  [0.013226797580718994, 92.04, 99.81, 0.2854850392043591, 0.2854850392043591, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [32 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04910270332375451, 98.39953644501279, 99.99400575447571, 0.04993043903290006, 0.04993043903290006, 0.0, 0.0]
+Testing:  [0.013185234069824218, 92.03, 99.78, 0.28593352265655997, 0.28593352265655997, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [33 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.049030456396624865, 98.46027813299233, 99.99800191815856, 0.04949184850601437, 0.04949184850601437, 0.0, 0.0]
+Testing:  [0.013192870616912843, 92.12, 99.81, 0.28622859813272955, 0.28622859813272955, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [34 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04903387108727184, 98.52541560102301, 99.99600383631713, 0.04627410113297003, 0.04627410113297003, 0.0, 0.0]
+Testing:  [0.01329972743988037, 92.14, 99.8, 0.2864620028436184, 0.2864620028436184, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [35 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04905630865365343, 98.57177109974424, 99.99400575447571, 0.04724810428231421, 0.04724810428231421, 0.0, 0.0]
+Testing:  [0.013208327293395996, 92.04, 99.78, 0.29178414478898046, 0.29178414478898046, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [36 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.0490717558604677, 98.676070971867, 99.99600383631713, 0.04379922260180154, 0.04379922260180154, 0.0, 0.0]
+Testing:  [0.013151841163635254, 91.91, 99.83, 0.2892836409062147, 0.2892836409062147, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [37 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04931760017219407, 98.65289322250639, 99.99200767263427, 0.04422937886184439, 0.04422937886184439, 0.0, 0.0]
+Testing:  [0.01333864450454712, 92.09, 99.81, 0.28636617481708526, 0.28636617481708526, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [38 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.049122010350532236, 98.71323529411765, 99.99600383631713, 0.04245864387001375, 0.04245864387001375, 0.0, 0.0]
+Testing:  [0.013162760734558106, 92.01, 99.81, 0.29481241665780544, 0.29481241665780544, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [39 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04901882815543953, 98.7791719948849, 99.99200767263427, 0.04062595721715323, 0.04062595721715323, 0.0, 0.0]
+Testing:  [0.01316347599029541, 92.04, 99.8, 0.292452752366662, 0.292452752366662, 0.0, 0.0]
+Best Acc:  92.14
+
+Epoch: [40 | 40] LR: 0.001000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04875991411526185, 98.79995204603581, 99.99400575447571, 0.041619760429729584, 0.041619760429729584, 0.0, 0.0]
+Testing:  [0.012984907627105713, 92.04, 99.83, 0.297354384586215, 0.297354384586215, 0.0, 0.0]
+Best Acc:  92.14
+
+real	14m4.990s
+user	20m27.506s
+sys	1m25.774s
+
+Ending script...
+Wed Jan 12 01:46:44 EST 2022
