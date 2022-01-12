@@ -74,21 +74,18 @@ def testing_loop(model, dataset_name):
     test_stats = test(testloader, model, criterion, ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss'])
     print('\nTest loss: %.4f \nVal accuracy: %.2f%%' % (test_stats[3], test_stats[1]))
 
-def training_loop(model, logger, schedule, training_opts, loss_weights, dataset_name, args, save_best=False):
-    criterion = basisCombinationLoss(loss_weights[0], loss_weights[0], False)
+def training_loop(model, logger, args, save_best=False):
+    criterion = basisCombinationLoss(args.l1_weight, args.l2_weight, False)
 
     criterion.cuda()
 
     ###################### Initialization ###################
-    # Unpack inputs
-    num_epochs, schedule = schedule[-1], schedule[:-1]
-    lr, momentum, weight_decay, gamma = training_opts
 
     # Load data
-    _, trainloader, num_classes = get_cifar_data(dataset_name, split='train', batch_size=args.train_batch, num_workers=args.workers)
-    _, testloader, num_classes = get_cifar_data(dataset_name, split='test', batch_size=args.test_batch, num_workers=args.workers)
+    _, trainloader, num_classes = get_cifar_data(args.dataset, split='train', batch_size=args.train_batch, num_workers=args.workers)
+    _, testloader, num_classes = get_cifar_data(args.dataset, split='test', batch_size=args.test_batch, num_workers=args.workers)
 
-    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=momentum, weight_decay=weight_decay)
+    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
     num_param = get_num_parameters(model)
 
     print('    Total params: %.2fM' % (num_param / 1000000.0))
@@ -96,10 +93,10 @@ def training_loop(model, logger, schedule, training_opts, loss_weights, dataset_
 
     ###################### Main Loop ########################
     best_acc = 0
-    for epoch in range(num_epochs):
-        lr = adjust_learning_rate(optimizer, lr, epoch, schedule, gamma)
+    for epoch in range(args.epochs):
+        lr = adjust_learning_rate(optimizer, args.lr, epoch, args.schedule, args.gamma)
 
-        print('\nEpoch: [%d | %d] LR: %f' % (epoch + 1, num_epochs, lr))
+        print('\nEpoch: [%d | %d] LR: %f' % (epoch + 1, args.epochs, lr))
 
         train_stats = train(trainloader, model, optimizer, criterion, logger.keys)
         test_stats = test(testloader, model, criterion, logger.keys)
