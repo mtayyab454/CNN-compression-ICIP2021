@@ -1,0 +1,303 @@
+Wed Jan 12 01:33:11 EST 2022
+Slurm nodes: evc5
+You were assigned 1 gpu(s)
+Please run `conda env list` to see a list of all available environments. Use
+`source activate <env>` to activate the environment '<env>'. 
+
+Currently Loaded Modules:
+  1) anaconda/anaconda3
+
+ 
+
+	[4mGPU0	mlx5_0	CPU Affinity	NUMA Affinity[0m
+GPU0	 X 	SYS	0,2,4,6	0-1
+mlx5_0	SYS	 X 		
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+
+Namespace(add_bn=True, arch='resnet56', checkpoint='checkpoint', dataset='cifar10', epochs=60, gamma=0.1, jobid='122934', l1_weight=0, l2_weight=0.1, logs='logs', lr=0.01, manualSeed=7709, momentum=0.9, schedule=[20, 40], t=0.63, test_batch=100, train_batch=128, weight_decay=0.0005, workers=4)
+Processing conv  0
+Processing conv  1
+Processing conv  2
+Processing conv  3
+Processing conv  4
+Processing conv  5
+Processing conv  6
+Processing conv  7
+Processing conv  8
+Processing conv  9
+Processing conv  10
+Processing conv  11
+Processing conv  12
+Processing conv  13
+Processing conv  14
+Processing conv  15
+Processing conv  16
+Processing conv  17
+Processing conv  18
+Processing conv  19
+Processing conv  20
+Processing conv  21
+Processing conv  22
+Processing conv  23
+Processing conv  24
+Processing conv  25
+Processing conv  26
+Processing conv  27
+Processing conv  28
+Processing conv  29
+Processing conv  30
+Processing conv  31
+Processing conv  32
+Processing conv  33
+Processing conv  34
+Processing conv  35
+Processing conv  36
+Processing conv  37
+Processing conv  38
+Processing conv  39
+Processing conv  40
+Processing conv  41
+Processing conv  42
+Processing conv  43
+Processing conv  44
+Processing conv  45
+Processing conv  46
+Processing conv  47
+Processing conv  48
+Processing conv  49
+Processing conv  50
+Processing conv  51
+Processing conv  52
+Processing conv  53
+Processing conv  54
+Skipping linear  55
+update_channels: Model compression is updated to 0.63
+
+############################################# resnet56-cifar10 #############################################
+
+    Model FLOPs: 250.97M
+    Basis Model FLOPs: 90.08M
+    % Reduction in FLOPs: 64.11 %
+    % Speedup: 2.79 %
+
+    Model Conv Params: 0.85M
+    Basis Model Conv params: 0.31M
+    % Reduction in Conv params: 63.66 %
+
+    Model Total Params: 0.85M
+    Basis Model Total params: 0.31M
+    % Reduction in Total params: 63.61 %
+
+    Model Filters: 2032
+    Basis Model Filters: 654
+    % Reduction in Filters: 67.81 %
+
+    Model Accuracy: 
+    Basis Model Accuracy: 
+    Reduction in Accuracy: 
+
+    Filter in original convs: [16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64]
+    Filter in original basis convs: [3, 4, 5, 5, 5, 5, 6, 5, 5, 6, 5, 5, 5, 5, 5, 5, 4, 4, 4, 9, 11, 10, 11, 11, 12, 10, 12, 11, 12, 11, 12, 11, 11, 11, 12, 11, 10, 19, 24, 23, 24, 23, 23, 25, 23, 25, 22, 25, 19, 22, 17, 19, 12, 13, 7]
+
+#########################################################################################################
+
+==> Preparing dataset cifar10
+Files already downloaded and verified
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Test loss: 5.5279 
+Val accuracy: 10.01%
+==> Preparing dataset cifar10
+Files already downloaded and verified
+==> Preparing dataset cifar10
+Files already downloaded and verified
+    Total params: 0.31M
+
+Epoch: [1 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.047715496833976884, 74.13762787723785, 97.41648017902813, 0.7655138515907786, 0.7655138515907786, 0.0, 0.0]
+Testing:  [0.013014087677001953, 82.44, 99.3, 0.532758355140686, 0.532758355140686, 0.0, 0.0]
+Best Acc:  82.44
+
+Epoch: [2 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04778821815919998, 88.18534207161126, 99.6343510230179, 0.3419132843575514, 0.3419132843575514, 0.0, 0.0]
+Testing:  [0.012995004653930664, 85.76, 99.17, 0.42660958126187326, 0.42660958126187326, 0.0, 0.0]
+Best Acc:  85.76
+
+Epoch: [3 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04750678240490691, 90.65017583120205, 99.78021099744245, 0.2677173348491454, 0.2677173348491454, 0.0, 0.0]
+Testing:  [0.013056349754333497, 87.71, 99.6, 0.381360015720129, 0.381360015720129, 0.0, 0.0]
+Best Acc:  87.71
+
+Epoch: [4 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04771247849135143, 91.69637148337596, 99.82217071611254, 0.23823068952164078, 0.23823068952164078, 0.0, 0.0]
+Testing:  [0.013086512088775634, 88.59, 99.51, 0.3770438399910927, 0.3770438399910927, 0.0, 0.0]
+Best Acc:  88.59
+
+Epoch: [5 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04775396759247841, 92.32376918158567, 99.87412084398977, 0.2185761807557872, 0.2185761807557872, 0.0, 0.0]
+Testing:  [0.013056223392486572, 88.99, 99.59, 0.34830238863825796, 0.34830238863825796, 0.0, 0.0]
+Best Acc:  88.99
+
+Epoch: [6 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.047713544972412425, 92.85126278772378, 99.87811700767263, 0.20313879348280484, 0.20313879348280484, 0.0, 0.0]
+Testing:  [0.013071446418762208, 88.1, 99.6, 0.3714791777729988, 0.3714791777729988, 0.0, 0.0]
+Best Acc:  88.99
+
+Epoch: [7 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.047653450075622716, 93.22010869565217, 99.8941016624041, 0.19435631941117898, 0.19435631941117898, 0.0, 0.0]
+Testing:  [0.013095126152038575, 89.43, 99.63, 0.3339078177511692, 0.3339078177511692, 0.0, 0.0]
+Best Acc:  89.43
+
+Epoch: [8 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.04768120602268697, 93.64170396419438, 99.91008631713555, 0.1817084127355872, 0.1817084127355872, 0.0, 0.0]
+Testing:  [0.013004868030548096, 89.45, 99.6, 0.3432012730836868, 0.3432012730836868, 0.0, 0.0]
+Best Acc:  89.45
+
+Epoch: [9 | 40] LR: 0.010000
+Training...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Keys:  ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss']
+Training:  [0.047651118329723775, 93.87587915601023, 99.91887787723785, 0.1746139407748609, 0.1746139407748609, 0.0, 0.0]
+Testing:  [0.01305438756942749, 88.61, 99.6, 0.36887130185961725, 0.36887130185961725, 0.0, 0.0]
+Best Acc:  89.45
+
+Epoch: [10 | 40] LR: 0.010000
+Training...
