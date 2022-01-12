@@ -2,7 +2,7 @@
 
 Pytorch implementation of "Compressing Deep CNNs Using Basis Representation and Spectral Fine-Tuning" (ICIP 2021).
 
-<div align=center><img src="img/framework.jpeg" height = "60%" width = "70%"/></div>
+<div align=center><img src="img/framework.png" height = "60%" width = "70%"/></div>
 
 
 ## Citation
