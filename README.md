@@ -1,4 +1,4 @@
-# Compressing Deep CNNs Using Basis Representation and Spectral Fine-Tuning ([Link](https://arxiv.org/abs/2105.10436))![]( https://visitor-badge.glitch.me/badge?page_id=lmbxmu.hrank).
+# Compressing Deep CNNs Using Basis Representation and Spectral Fine-Tuning ([Link](https://arxiv.org/abs/2105.10436)).
 
 Pytorch implementation of "Compressing Deep CNNs Using Basis Representation and Spectral Fine-Tuning" (ICIP 2021).
 
