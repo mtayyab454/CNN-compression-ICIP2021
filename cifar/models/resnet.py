@@ -33,7 +33,7 @@ import torch.nn.functional as F
 import torch.nn.init as init
 from torch.hub import load_state_dict_from_url
 from torch.autograd import Variable
-from models.resnet_old import resnet110_100_old
+from cifar.models.resnet_old import resnet110_100_old
 
 __all__ = ['ResNet', 'resnet20', 'resnet32', 'resnet44', 'resnet56', 'resnet110', 'resnet1202']
 
@@ -165,7 +165,7 @@ def resnet56_10(pretrained):
     model = resnet56()
 
     if pretrained:
-        state_dict = torch.load('models/resnet56_cifar10.th')['state_dict']
+        state_dict = torch.load('cifar/models/resnet56_cifar10.th')['state_dict']
         # state_dict = load_state_dict_from_url('https://www.dropbox.com/s/qnfe1ew8457uczv/resnet56_cifar10.th?dl=1')['state_dict']
         new_dict = OrderedDict()
 

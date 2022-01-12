@@ -4,8 +4,8 @@ import time
 import torch.nn as nn
 import torch.optim as optim
 
-from utils import AverageAccumulator, VectorAccumulator, accuracy, Progressbar, adjust_learning_rate, get_num_parameters
-from datasets import get_cifar_data
+from cifar.utils import AverageAccumulator, VectorAccumulator, accuracy, Progressbar, adjust_learning_rate, get_num_parameters
+from cifar.datasets import get_cifar_data
 from base_code.basis_loss import basisCombinationLoss
 
 def train(trainloader, model, optimizer, criterion, keys):
@@ -104,12 +104,12 @@ def training_loop(model, logger, schedule, training_opts, loss_weights, dataset_
         train_stats = train(trainloader, model, optimizer, criterion, logger.keys)
         test_stats = test(testloader, model, criterion, logger.keys)
 
-        torch.save(model.state_dict(), os.path.join('checkpoint', logger.fname, logger.fname + '.pth'))
+        torch.save(model.state_dict(), os.path.join(args.checkpoint, logger.fname, logger.fname + '.pth'))
 
         if best_acc < test_stats[1]:
             best_acc = test_stats[1]
             if save_best:
-                torch.save(model.state_dict(), os.path.join('checkpoint', logger.fname, logger.fname + '_best.pth'))
+                torch.save(model.state_dict(), os.path.join(args.checkpoint, logger.fname, logger.fname + '_best.pth'))
 
         print('\nKeys: ', logger.keys)
         print('Training: ', train_stats)
