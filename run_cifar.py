@@ -70,7 +70,7 @@ parser.add_argument('--logs', default='cifar/logs', type=str, metavar='PATH',
                     help='path to save the training logs (default: logs)')
 # Architecture
 # Miscs
-parser.add_argument('--manualSeed', type=int, default=535, help='manual seed')
+parser.add_argument('--manualSeed', type=int, default=None, help='manual seed')
 
 args = parser.parse_args()
 state = {k: v for k, v in args._get_kwargs()}
@@ -112,7 +112,7 @@ def main():
 
     logger = Logger(dir_path=args.logs, fname=exp_name,
                     keys=['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss'])
-    logger.one_time({'stats': stats, 'comments': args.arch + '-' + args.dataset})
+    logger.one_time({'stats': stats, 'seed':args.manualSeed, 'comments': args.arch + '-' + args.dataset})
     logger.set_names(['lr', 'train_stats', 'test_stats'])
 
     testing_loop(basis_model, args.dataset)

@@ -26,7 +26,7 @@ Following commands can be used to reproduce the results presented in the paper.
 
 | Flops         | Parameters      | Accuracy |
 |---------------|-----------------|----------|
-|89.80M(64.22%) | 0.32M(62.97%)   | 92.61%   | 
+|89.80M(64.22%) | 0.32M(62.97%)   | 92.71%   | 
 
 ```shell
 python run_cifar.py \
