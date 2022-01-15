@@ -80,12 +80,12 @@ def training_loop(model, logger, args, save_best=False):
     criterion.cuda()
 
     ###################### Initialization ###################
-
+    lr = args.lr
     # Load data
     _, trainloader, num_classes = get_cifar_data(args.dataset, split='train', batch_size=args.train_batch, num_workers=args.workers)
     _, testloader, num_classes = get_cifar_data(args.dataset, split='test', batch_size=args.test_batch, num_workers=args.workers)
 
-    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, weight_decay=args.weight_decay)
+    optimizer = optim.SGD(model.parameters(), lr=lr, momentum=args.momentum, weight_decay=args.weight_decay)
     num_param = get_num_parameters(model)
 
     print('    Total params: %.2fM' % (num_param / 1000000.0))
@@ -94,7 +94,7 @@ def training_loop(model, logger, args, save_best=False):
     ###################### Main Loop ########################
     best_acc = 0
     for epoch in range(args.epochs):
-        lr = adjust_learning_rate(optimizer, args.lr, epoch, args.schedule, args.gamma)
+        lr = adjust_learning_rate(optimizer, lr, epoch, args.schedule, args.gamma)
 
         print('\nEpoch: [%d | %d] LR: %f' % (epoch + 1, args.epochs, lr))
 
