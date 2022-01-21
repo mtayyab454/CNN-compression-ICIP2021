@@ -41,6 +41,14 @@ source activate pytorch-gpu
 # Run TensorFlow
 echo
 time python run_cifar.py --jobid $SLURM_JOB_ID
+#time python run_cifar.py \
+#--jobid wideresnet28x10_baseline \
+#--arch wideresnet28x10 \
+#--dataset cifar10 \
+#--epochs 200 \
+#--schedule 60 120 160 \
+#--lr 0.1 \
+#--gamma 0.2
 # python -u trainer.py  --arch=resnet56  --save-dir=checkpoints/$SLURM_JOB_ID
 echo
 

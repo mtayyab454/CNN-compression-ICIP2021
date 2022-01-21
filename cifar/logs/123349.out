@@ -1,0 +1,47 @@
+Fri Jan 21 18:09:17 EST 2022
+Slurm nodes: evc2
+You were assigned 1 gpu(s)
+Please run `conda env list` to see a list of all available environments. Use
+`source activate <env>` to activate the environment '<env>'. 
+
+Currently Loaded Modules:
+  1) anaconda/anaconda3
+
+ 
+
+	[4mGPU0	mlx5_0	CPU Affinity	NUMA Affinity[0m
+GPU0	 X 	SYS	8,10,12,14	0-1
+mlx5_0	SYS	 X 		
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+
+compress_rate: 0.5
+Namespace(add_bn=True, arch='wideresnet28x10', baseline=True, checkpoint='cifar/checkpoint', compress_rate=0.5, dataset='cifar10', epochs=200, gamma=0.2, jobid='wideresnet28x10_baseline', l1_weight=0, l2_weight=0.001, logs='cifar/logs', lr=0.1, manualSeed=6435, momentum=0.9, schedule=[60, 120, 160], test_batch=100, train_batch=128, weight_decay=0.0005, workers=4)
+==> Preparing dataset cifar10
+Files already downloaded and verified
+Testing...
+ -> Progress: 20 done!
+ -> Progress: 40 done!
+ -> Progress: 60 done!
+ -> Progress: 80 done!
+ -> Progress: 100 done!
+
+Test loss: 6.2232 
+Val accuracy: 0.21%
+==> Preparing dataset cifar10
+Files already downloaded and verified
+==> Preparing dataset cifar10
+Files already downloaded and verified
+    Total params: 36.54M
+
+Epoch: [1 | 200] LR: 0.100000
+Training...

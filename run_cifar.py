@@ -26,18 +26,19 @@ def str2bool(v):
     else:
         raise argparse.ArgumentTypeError('Boolean value expected.')
 
-model_names = ['resnet56']
+model_names = ['resnet56', 'wideresnet28x10']
 
 parser = argparse.ArgumentParser(description='PyTorch CIFAR10/100 Training')
 # Datasets
 
 parser.add_argument('--jobid', type=str, default='test')
-parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet56',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='wideresnet28x10',
                     choices=model_names,
                     help='model architecture: ' +
                         ' | '.join(model_names) +
                         ' (default: resnet56)')
 
+parser.add_argument("--baseline", type=str2bool, nargs='?', const=True, default=True, help="Set true to train the baseline model, without any compression")
 parser.add_argument('-d', '--dataset', default='cifar10', type=str)
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
@@ -45,7 +46,7 @@ parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
 parser.add_argument('--l1_weight', default=0, type=float)
 parser.add_argument('--l2_weight', default=0.001, type=float)
 # Add description of compress_rate
-parser.add_argument('--compress_rate', type=str, default=':[6,4,4,6,4,4,4,4,4,4,4,4,4,13,4,10,6,4,4,12,18,16,4,15,4,16,4,12,7,13,4,15,4,18,4,12,4,32,26,36,16,32,13,29,23,32,16,36,10,23,13,20,10,13,7]', help='compress rate of each conv')
+parser.add_argument('--compress_rate', type=str, default='0.50', help='compress rate of each conv')
 parser.add_argument("--add_bn", type=str2bool, nargs='?', const=True, default=True, help="Use batchnorm between basis filters and 1by1 convolutions.")
 # Optimization options
 parser.add_argument('--epochs', default=120, type=int, metavar='N',
@@ -101,14 +102,20 @@ def main():
     create_dir([checkpoint_dir, args.logs])
 
     model = get_cifar_models(args.arch, args.dataset, pretrained=True)
-    basis_model = basisModel(model, use_weights=True, add_bn=args.add_bn, trainable_basis=True, replace_fc=False, sparse_filters=False)
+    if args.baseline is False:
+        basis_model = basisModel(model, use_weights=True, add_bn=args.add_bn, trainable_basis=True, replace_fc=False, sparse_filters=False)
+    else:
+        basis_model = model
 
     basis_model.cuda()
     model.cuda()
 
     # basis_model, model = get_models(model_name, dataset_name, sparse_filters=False, pretrained=True, add_bn=add_bn)
-    basis_model.update_channels(args.compress_rate)
-    stats = display_stats(basis_model, model, args.arch + '-' + args.dataset)
+    if args.baseline is False:
+        basis_model.update_channels(args.compress_rate)
+        stats = display_stats(basis_model, model, args.arch + '-' + args.dataset)
+    else:
+        stats = 'Baseline training'
 
     logger = Logger(dir_path=args.logs, fname=exp_name,
                     keys=['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss'])

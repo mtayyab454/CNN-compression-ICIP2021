@@ -75,7 +75,11 @@ def testing_loop(model, dataset_name):
     print('\nTest loss: %.4f \nVal accuracy: %.2f%%' % (test_stats[3], test_stats[1]))
 
 def training_loop(model, logger, args, save_best=False):
-    criterion = basisCombinationLoss(args.l1_weight, args.l2_weight, False)
+
+    if args.baseline is False:
+        criterion = basisCombinationLoss(args.l1_weight, args.l2_weight, False)
+    else:
+        criterion = basisCombinationLoss(0, 0, False)
 
     criterion.cuda()
 
