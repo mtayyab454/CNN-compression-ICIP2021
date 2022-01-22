@@ -43,7 +43,7 @@ class NetworkBlock(nn.Module):
         return self.layer(x)
 
 class WideResNet(nn.Module):
-    def __init__(self, depth=28, num_classes=100, widen_factor=10, dropRate=0.0):
+    def __init__(self, depth, num_classes, widen_factor, dropRate=0.0):
         super(WideResNet, self).__init__()
         nChannels = [16, 16*widen_factor, 32*widen_factor, 64*widen_factor]
         assert((depth - 4) % 6 == 0)
@@ -85,6 +85,12 @@ class WideResNet(nn.Module):
 # m = WideResNet()
 # print(m(torch.randn(1, 3, 32, 32)).shape)
 
-def wideresnet28():
-    return WideResNet()
+def wideresnet28x10(pretrained):
+    model = WideResNet(depth=28, num_classes=10, widen_factor=10, dropRate=0.3)
+
+    if pretrained:
+        checkpoint = torch.load('wideresnet28x10_cifar10.pth')
+        model.load_state_dict(checkpoint)
+
+    return model
 

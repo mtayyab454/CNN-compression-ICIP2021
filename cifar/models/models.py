@@ -4,7 +4,7 @@ from cifar.models.vgg import vgg16_100, vgg16_D1, vgg16_D2, vgg16_10, vgg16_svhn
 from cifar.models.densenet import densel190k40_100
 from cifar.models.alexnet import alexnet_100
 from cifar.models.resnet import resnet110_100, resnet56_10
-from cifar.models.wideresnet import wideresnet28
+from cifar.models.wideresnet import wideresnet28x10
 
 def get_cifar_models(model_name, dataset_name, pretrained=True):
 
@@ -45,7 +45,7 @@ def get_cifar10_models(model_name, pretrained):
     elif model_name == 'resnet56':
         model = resnet56_10(pretrained)
     elif model_name == 'wideresnet28x10':
-        model = wideresnet28()
+        model = wideresnet28x10(pretrained)
 
     return model
 
