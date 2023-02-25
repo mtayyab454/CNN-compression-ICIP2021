@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import copy
 import math
-from base_code.basis_layer import basisConv2d, basisLinear
+from base_code.basis_layer import BasisConv2d
 
 def display_stats(basis_model, model, exp_name, input_size, count_relu=False):
     # if input_size is None:

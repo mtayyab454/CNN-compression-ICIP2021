@@ -59,26 +59,26 @@ class BasisConv2d(nn.Module):
         x = self.conv_w(x)
         return x
 
-# create an input tensor
-x = torch.randn(1, 3, 32, 32)
-
-# create a Conv2d layer with random weights
-conv = torch.nn.Conv2d(3, 16, kernel_size=3, bias=True)
-
-# create a BasisConv2d module using the weights of the Conv2d layer
-basis_conv = BasisConv2d(
-    conv.weight.data.clone(),
-    conv.bias.data.clone() if conv.bias is not None else None,
-    True,
-    conv.in_channels,
-    16,
-    conv.out_channels,
-    conv.kernel_size
-)
-
-# perform forward pass with both Conv2d and BasisConv2d modules
-y_conv = conv(x)
-y_basis = basis_conv(x)
-
-# check that output tensors are equal
-print(torch.allclose(y_conv, y_basis, atol=1e-5))  # True
+# # create an input tensor
+# x = torch.randn(1, 3, 32, 32)
+#
+# # create a Conv2d layer with random weights
+# conv = torch.nn.Conv2d(3, 16, kernel_size=3, bias=True)
+#
+# # create a BasisConv2d module using the weights of the Conv2d layer
+# basis_conv = BasisConv2d(
+#     conv.weight.data.clone(),
+#     conv.bias.data.clone() if conv.bias is not None else None,
+#     True,
+#     conv.in_channels,
+#     16,
+#     conv.out_channels,
+#     conv.kernel_size
+# )
+#
+# # perform forward pass with both Conv2d and BasisConv2d modules
+# y_conv = conv(x)
+# y_basis = basis_conv(x)
+#
+# # check that output tensors are equal
+# print(torch.allclose(y_conv, y_basis, atol=1e-5))  # True
