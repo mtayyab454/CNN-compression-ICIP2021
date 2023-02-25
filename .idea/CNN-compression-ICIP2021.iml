@@ -4,11 +4,12 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/cifar/checkpoint" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (distiller)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="distiller" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
     <option name="myDocStringFormat" value="Plain" />
+    <option name="renderExternalDocumentation" value="true" />
   </component>
 </module>

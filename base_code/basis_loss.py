@@ -1,5 +1,5 @@
 import torch
-from base_code.basisLayer import basisConv2d
+from base_code.basis_layer import basisConv2d
 import torch.nn.functional as F
 import torch.nn as nn
 

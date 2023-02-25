@@ -32,7 +32,7 @@ parser = argparse.ArgumentParser(description='PyTorch CIFAR10/100 Training')
 # Datasets
 
 parser.add_argument('--jobid', type=str, default='test')
-parser.add_argument('--arch', '-a', metavar='ARCH', default='wideresnet28x10',
+parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet56',
                     choices=model_names,
                     help='model architecture: ' +
                         ' | '.join(model_names) +
