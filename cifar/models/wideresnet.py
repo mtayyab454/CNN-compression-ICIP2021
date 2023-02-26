@@ -26,7 +26,7 @@ class BasicBlock(nn.Module):
             out = self.relu1(self.bn1(x))
         out = self.relu2(self.bn2(self.conv1(out if self.equalInOut else x)))
         if self.droprate > 0:
-            out = F.dropout(out, p=self.droprate, training=self.training)
+            out = F.dropout(out, p=self.droprate, training=True)
         out = self.conv2(out)
         return torch.add(x if self.equalInOut else self.convShortcut(x), out)
 
@@ -43,15 +43,16 @@ class NetworkBlock(nn.Module):
         return self.layer(x)
 
 class WideResNet(nn.Module):
-    def __init__(self, depth, num_classes, widen_factor, dropRate=0.0):
+    def __init__(self, depth=28, num_classes=10, widen_factor=10, dropRate=0.0,contrastive_learning=True):
         super(WideResNet, self).__init__()
-        nChannels = [16, 16*widen_factor, 32*widen_factor, 64*widen_factor]
+        nChannels = [16, 16*widen_factor, 32*widen_factor, 64*widen_factor, 64*widen_factor*10]
         assert((depth - 4) % 6 == 0)
         n = (depth - 4) / 6
         block = BasicBlock
         # 1st conv before any network block
         self.conv1 = nn.Conv2d(3, nChannels[0], kernel_size=3, stride=1,
                                padding=1, bias=False)
+        self.dropout = torch.nn.Dropout(0.3)
         # 1st block
         self.block1 = NetworkBlock(n, nChannels[0], nChannels[1], block, 1, dropRate)
         # 2nd block
@@ -61,29 +62,53 @@ class WideResNet(nn.Module):
         # global average pooling and classifier
         self.bn1 = nn.BatchNorm2d(nChannels[3])
         self.relu = nn.ReLU(inplace=True)
-        self.fc = nn.Linear(nChannels[3], num_classes)
+
+        self.ID_mat = torch.eye(num_classes).cuda()
+
+        self.fc = nn.Linear(nChannels[3], num_classes, bias=False)
+        self.fc.weight.requires_grad = False        # Freezing the weights during training
         self.nChannels = nChannels[3]
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
-                nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
+                n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
+                m.weight.data.normal_(0, math.sqrt(2. / n))
             elif isinstance(m, nn.BatchNorm2d):
                 m.weight.data.fill_(1)
                 m.bias.data.zero_()
             elif isinstance(m, nn.Linear):
-                m.bias.data.zero_()
+                nn.init.orthogonal(m.weight.data)   # Initializing with orthogonal rows
+        self.g = nn.Sequential(
+            nn.Linear(nChannels[3], 1),
+            nn.BatchNorm1d(1),
+            nn.Sigmoid()
+        )
+
     def forward(self, x):
         out = self.conv1(x)
         out = self.block1(out)
         out = self.block2(out)
         out = self.block3(out)
-        out = self.relu(self.bn1(out))
-        out = F.avg_pool2d(out, 8)
-        out = out.view(-1, self.nChannels)
-        return self.fc(out)
 
-# m = WideResNet()
-# print(m(torch.randn(1, 3, 32, 32)).shape)
+        #out = self.relu(self.bn1(out)) #
+        #out = self.relu(out) #
+
+        out = F.avg_pool2d(out, 8)
+        out_feat = out.view(-1, self.nChannels)
+
+        out = F.normalize(out_feat, dim=1, p=2) # x
+        x = norm(out)
+        w = norm(self.fc.weight) # w
+        num = (torch.matmul(x,w.T))
+        den = self.g(out)
+        #print(out_feat.shape)
+        return num/den
+
+
+def norm(x):
+    norm = torch.norm(x, p=2, dim=1)
+    x = x / (norm.expand(1, -1).t() + .0001)
+    return x
 
 def wideresnet28x10(pretrained):
     model = WideResNet(depth=28, num_classes=10, widen_factor=10, dropRate=0.3)
@@ -94,3 +119,5 @@ def wideresnet28x10(pretrained):
 
     return model
 
+# m = wideresnet28x10(False)
+# print(m(torch.randn(8, 3, 32, 32)))
