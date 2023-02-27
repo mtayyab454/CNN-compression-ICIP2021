@@ -97,9 +97,84 @@ class BasisConv2d(nn.Module):
 
         return F, w
 
+    def combine_conv_f_with_bn(self):
+
+        if self.bn is not None:
+            conv = self.conv_f
+            bn = self.bn
+            fusedconv = torch.nn.Conv2d(
+                conv.in_channels,
+                conv.out_channels,
+                kernel_size=conv.kernel_size,
+                stride=conv.stride,
+                padding=conv.padding,
+                dilation=conv.dilation,
+                groups=conv.groups,
+                bias=True
+            )
+            #
+            # prepare filters
+            w_conv = conv.weight.clone().view(conv.out_channels, -1)
+            w_bn = torch.diag(bn.weight.div(torch.sqrt(bn.eps + bn.running_var)))
+            fusedconv.weight.data.copy_(torch.mm(w_bn, w_conv).view(fusedconv.weight.size()))
+
+            # prepare spatial bias
+            if conv.bias is not None:
+                b_conv = conv.bias
+            else:
+                b_conv = torch.zeros(conv.weight.size(0))
+            b_bn = bn.bias - bn.weight.mul(bn.running_mean).div(torch.sqrt(bn.running_var + bn.eps))
+            fusedconv.bias.data.copy_(torch.matmul(w_bn, b_conv) + b_bn)
+
+            self.conv_f = fusedconv
+            self.bn = None
+
+    def combine_conv_f_with_conv_w(self):
+
+        self.combine_conv_f_with_bn()
+
+        fusedconv = torch.nn.Conv2d(
+            in_channels=self.conv_f.in_channels,
+            out_channels=self.conv_w.out_channels,
+            kernel_size=self.conv_f.kernel_size,
+            stride=self.conv_f.stride,
+            padding=self.conv_f.padding,
+            dilation=self.conv_f.dilation,
+            groups=self.conv_f.groups,
+            bias=False if self.conv_w.bias is None and self.conv_f.bias is None else True
+        )
+
+        # F -> QxDxDxL
+        F = self.conv_f.weight.data.clone()
+        # F -> QxLD^2
+        F = F.view(self.conv_f.weight.shape[0], -1)
+
+        if self.conv_f.bias is not None:
+            b = self.conv_f.bias.data.clone().unsqueeze(1)
+            F = torch.cat([F, b], dim=1)
+
+        # w -> PxQ
+        w = self.conv_w.weight.data.clone().squeeze(3).squeeze(2)
+        # H' -> PxLD^2 = w -> PxQ * F -> QxLD^2
+        H = torch.mm(w, F)
+
+        # Set the weight and bias of fusedconv based on whether conv_f and conv_w have bias
+        if self.conv_f.bias is None and self.conv_w.bias is None: # both no bias
+            fusedconv.weight.data = H.view_as(fusedconv.weight.data)
+        elif self.conv_f.bias is not None and self.conv_w.bias is None: # F has bias
+            fusedconv.weight.data = H[:, :-1].view_as(fusedconv.weight.data)
+            fusedconv.bias.data = H[:, -1]
+        elif self.conv_f.bias is None and self.conv_w.bias is not None: # w has bias
+            fusedconv.weight.data = H.view_as(fusedconv.weight.data)
+            fusedconv.bias.data = self.conv_w.bias.data.clone()
+        elif self.conv_f.bias is not None and self.conv_w.bias is not None: # both has bias
+            fusedconv.weight.data = H[:, :-1].view_as(fusedconv.weight.data)
+            fusedconv.bias.data = self.conv_w.bias.data.clone() + H[:, -1]
+
+        return fusedconv
+
     def forward(self, x):
         # convolve with F and then w
-        # print('Hello')
         x = self.conv_f(x)
         if self.bn is not None:
             x = self.bn(x)
@@ -111,7 +186,8 @@ if __name__ == '__main__':
     x = torch.randn(1, 3, 32, 32)
 
     # create a Conv2d layer with random weights
-    conv = torch.nn.Conv2d(3, 16, kernel_size=3, bias=True)
+    conv = torch.nn.Conv2d(3, 16, kernel_size=3, bias=False)
+    conv.eval()
 
     # create a BasisConv2d module using the weights of the Conv2d layer
     basis_conv = BasisConv2d(
@@ -127,10 +203,19 @@ if __name__ == '__main__':
         conv.dilation,
         conv.groups,
     )
+    basis_conv.eval()
 
     # perform forward pass with both Conv2d and BasisConv2d modules
     y_conv = conv(x)
     y_basis = basis_conv(x)
-
-    # check that output tensors are equal
     print(torch.allclose(y_conv, y_basis, atol=1e-5))  # True
+
+    basis_conv.combine_conv_f_with_bn()
+    y_combine_conv_f_with_bn = basis_conv(x)
+    # check that output tensors are equal
+    print(torch.allclose(y_combine_conv_f_with_bn, y_basis, atol=1e-5))  # True
+
+    rec_conv = basis_conv.combine_conv_f_with_conv_w()
+    y_basisc = rec_conv(x)
+    # check that output tensors are equal
+    print(torch.allclose(y_basisc, y_basis, atol=1e-5))  # True
