@@ -2,6 +2,25 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+def replace_basisconv2d_with_conv2d(module):
+    """
+    Recursively replaces all BasisConv2d layers in a module with Conv2d layers.
+
+    Args:
+        module (torch.nn.Module): The module whose BasisConv2d layers will be replaced.
+    Returns:
+        None.
+    """
+    for name, child_module in module.named_children():
+        if isinstance(child_module, BasisConv2d):
+            # Replace the Conv2d layer with a BasisConv2d layer
+            conv_layer = child_module.combine_conv_f_with_conv_w()
+            setattr(module, name, conv_layer)
+            # module._modules[name] = basis_layer
+        else:
+            # Recursively apply the function to the child module
+            replace_conv2d_with_basisconv2d(child_module)
+
 def replace_conv2d_with_basisconv2d(module, basis_channels_list=None, add_bn_list=None):
     """
     Recursively replaces all Conv2d layers in a module with BasisConv2d layers.
