@@ -1,6 +1,22 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+
+def trace_model(model):
+    in_channels, out_channels, basis_channels, layer_type = [], [], [], []
+
+    for name, module in model.named_modules():
+        if isinstance(module, nn.Conv2d):
+            in_channels.append(module.in_channels)
+            out_channels.append(module.out_channels)
+            basis_channels.append(min(module.out_channels, module.in_channels * module.kernel_size[0] * module.kernel_size[1]))
+            layer_type.append('conv')
+        elif isinstance(module, nn.Linear):
+            in_channels.append(module.in_features)
+            out_channels.append(module.out_features)
+            basis_channels.append(min(module.out_features, module.in_features))
+            layer_type.append('linear')
+
+    return in_channels, out_channels, basis_channels, layer_type
 
 def replace_basisconv2d_with_conv2d(module):
     """

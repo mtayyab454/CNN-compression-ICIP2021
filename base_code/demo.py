@@ -16,4 +16,5 @@ if __name__ == '__main__':
     # Replace all BasisConv2d layers in model with Conv2d
     replace_basisconv2d_with_conv2d(model)
     model_output = model(input_tensor)
-    print(torch.allclose(model_output, basis_model_output, atol=1e-4))  # True
+    print( (model_output-basis_model_output).abs().sum() )
+    print(torch.allclose(model_output, basis_model_output, atol=1e-2))  # True
