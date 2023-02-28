@@ -5,7 +5,7 @@ import math
 from collections import OrderedDict
 from torch.hub import load_state_dict_from_url
 
-__all__ = ['densenet']
+__all__ = ['densenet', 'denset_d190k40']
 
 
 from torch.autograd import Variable
@@ -149,35 +149,6 @@ def densenet(**kwargs):
     """
     return DenseNet(**kwargs)
 
-def densel190k40_100(pretrained):
-
-    model = densenet(depth=190, growthRate=40, num_classes=100)
-    if pretrained:
-        state_dict = load_state_dict_from_url('https://www.dropbox.com/s/ka0e752v36d0jvo/densenet-bc-L190-k40_cifar100.pth.tar?dl=1')['state_dict']
-        new_dict = OrderedDict()
-
-        for f in state_dict.keys():
-            new_dict.update({f[7:]: state_dict[f]})
-
-        model.load_state_dict(new_dict)
-
+def denset_d190k40(num_classes):
+    model = densenet(depth=190, growthRate=40, num_classes=num_classes)
     return model
-
-def densel190k40_10(pretrained):
-    model = densenet(depth=190, growthRate=40, num_classes=10)
-    if pretrained:
-        state_dict = load_state_dict_from_url('https://www.dropbox.com/s/0r7m7h7oq59vrob/densenet-bc-L190-k40_cifar10.pth.tar?dl=1')['state_dict']
-        new_dict = OrderedDict()
-
-        for f in state_dict.keys():
-            new_dict.update({f[7:]:state_dict[f]})
-
-        model.load_state_dict(new_dict)
-
-    return model
-
-# model = densel190k40_100(True)
-#
-# for m in model.modules():
-#     if isinstance(m, nn.Conv2d):
-#         m = nn.Conv2d(1,1,1)

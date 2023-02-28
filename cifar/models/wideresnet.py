@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
+__all__ = ['WideResNet', 'wideresnet28x10']
 class BasicBlock(nn.Module):
     def __init__(self, in_planes, out_planes, stride, dropRate=0.0):
         super(BasicBlock, self).__init__()
@@ -110,13 +110,8 @@ def norm(x):
     x = x / (norm.expand(1, -1).t() + .0001)
     return x
 
-def wideresnet28x10(pretrained):
-    model = WideResNet(depth=28, num_classes=10, widen_factor=10, dropRate=0.3)
-
-    if pretrained:
-        checkpoint = torch.load('wideresnet28x10_cifar10.pth')
-        model.load_state_dict(checkpoint)
-
+def wideresnet28x10(num_classes):
+    model = WideResNet(depth=28, num_classes=num_classes, widen_factor=10, dropRate=0.3)
     return model
 
 # m = wideresnet28x10(False)

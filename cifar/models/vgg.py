@@ -74,8 +74,6 @@ cfg = {
     'A': [64, 'M', 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M'],
-    'D1': [32, 32, 'M', 64, 64, 'M', 128, 128, 128, 'M', 256, 256, 256, 'M', 256, 256, 256, 'M'],
-    'D2': [40, 40, 'M', 80, 80, 'M', 160, 160, 160, 'M', 160, 160, 160, 'M', 320, 320, 320, 'M'],
     'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M'],
 
 }
@@ -143,75 +141,3 @@ def vgg19_bn(**kwargs):
     """VGG 19-layer model (configuration 'E') with batch normalization"""
     model = VGG(make_layers(cfg['E'], batch_norm=True), **kwargs)
     return model
-
-def vgg16_D1(pretrained):
-    model = VGG(make_layers(cfg['D1']), num_classes=100, l=256)
-
-    return model
-
-def vgg16_D2(pretrained):
-    model = VGG(make_layers(cfg['D2']), num_classes=100, l=320)
-
-    return model
-
-def vgg16_100(pretrained):
-    model = vgg16(num_classes=100)
-
-    if pretrained:
-        checkpoint = load_state_dict_from_url('https://www.dropbox.com/s/qyae0rktj7qv1tt/vgg16_cifar100.pth?dl=1')
-        model.load_state_dict(checkpoint)
-
-    return model
-
-def vgg16_10(pretrained):
-    model = vgg16(num_classes=10)
-
-    if pretrained:
-        checkpoint = load_state_dict_from_url('https://www.dropbox.com/s/onbz3a8p1gipaz2/vgg16_cifar10.pth?dl=1')
-        model.load_state_dict(checkpoint)
-
-    return model
-
-def vgg16_svhn(pretrained):
-    model = vgg16(num_classes=10)
-
-    if pretrained:
-        checkpoint = load_state_dict_from_url('https://www.dropbox.com/s/su0pzhl8et9f46r/vgg16_svhn.pth?dl=1')
-        model.load_state_dict(checkpoint)
-
-    return model
-
-def vgg16_10to100(pretrained): # VGG16 for CIFAR100 initilized with CIFAR10 weights
-    model = vgg16_100(pretrained=False)
-
-    if pretrained:
-        temp = vgg16_10(True)
-        state_dict = temp.state_dict()
-        new_dict = OrderedDict()
-
-        for f in state_dict.keys():
-            if f[:8] == 'features':
-                new_dict.update({f: state_dict[f]})
-
-        model.load_state_dict(new_dict, strict=False)
-
-    return model
-
-def vgg16_100to10(pretrained): # VGG16 for CIFAR10 initilized with CIFAR100 weights
-    model = vgg16_10(pretrained=False)
-
-    if pretrained:
-        temp = vgg16_100(True)
-        state_dict = temp.state_dict()
-        new_dict = OrderedDict()
-
-        for f in state_dict.keys():
-            if f[:8] == 'features':
-                new_dict.update({f: state_dict[f]})
-
-        model.load_state_dict(new_dict, strict=False)
-
-    return model
-
-# model = vgg16_10to100(True)
-# print(model(torch.randn(4, 3, 32, 32)))

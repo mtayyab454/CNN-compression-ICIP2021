@@ -31,9 +31,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.nn.init as init
-from torch.hub import load_state_dict_from_url
-from torch.autograd import Variable
-from cifar.models.resnet_old import resnet110_100_old
 
 __all__ = ['ResNet', 'resnet20', 'resnet32', 'resnet44', 'resnet56', 'resnet110', 'resnet1202']
 
@@ -118,65 +115,25 @@ class ResNet(nn.Module):
         return out
 
 
-def resnet20():
-    return ResNet(BasicBlock, [3, 3, 3])
+def resnet20(num_classes):
+    return ResNet(BasicBlock, [3, 3, 3], num_classes=num_classes)
 
 
-def resnet32():
-    return ResNet(BasicBlock, [5, 5, 5])
+def resnet32(num_classes):
+    return ResNet(BasicBlock, [5, 5, 5], num_classes=num_classes)
 
 
-def resnet44():
-    return ResNet(BasicBlock, [7, 7, 7])
+def resnet44(num_classes):
+    return ResNet(BasicBlock, [7, 7, 7], num_classes=num_classes)
 
 
-def resnet56():
-    return ResNet(BasicBlock, [9, 9, 9])
+def resnet56(num_classes):
+    return ResNet(BasicBlock, [9, 9, 9], num_classes=num_classes)
 
 
-def resnet110():
-    return ResNet(BasicBlock, [18, 18, 18])
+def resnet110(num_classes):
+    return ResNet(BasicBlock, [18, 18, 18], num_classes=num_classes)
 
 
-def resnet1202():
-    return ResNet(BasicBlock, [200, 200, 200])
-
-
-def test(net):
-    import numpy as np
-    total_params = 0
-
-    for x in filter(lambda p: p.requires_grad, net.parameters()):
-        total_params += np.prod(x.data.numpy().shape)
-    print("Total number of params", total_params)
-    print("Total layers", len(list(filter(lambda p: p.requires_grad and len(p.data.size())>1, net.parameters()))))
-
-
-# if __name__ == "__main__":
-#     for net_name in __all__:
-#         if net_name.startswith('resnet'):
-#             print(net_name)
-#             test(globals()[net_name]())
-#             print()
-
-from collections import OrderedDict
-
-def resnet56_10(pretrained):
-    model = resnet56()
-
-    if pretrained:
-        state_dict = torch.load('cifar/models/resnet56_cifar10.th')['state_dict']
-        # state_dict = load_state_dict_from_url('https://www.dropbox.com/s/qnfe1ew8457uczv/resnet56_cifar10.th?dl=1')['state_dict']
-        new_dict = OrderedDict()
-
-        for f in state_dict.keys():
-            new_dict.update({f[7:]: state_dict[f]})
-
-        model.load_state_dict(new_dict)
-
-    return model
-
-def resnet110_100(pretrained):
-    return resnet110_100_old(pretrained)
-
-# m = resnet110_100(True)
+def resnet1202(num_classes):
+    return ResNet(BasicBlock, [200, 200, 200], num_classes=num_classes)

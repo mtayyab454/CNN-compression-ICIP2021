@@ -4,9 +4,15 @@ import time
 import torch.nn as nn
 import torch.optim as optim
 
+import cifar.models as models
+
 from cifar.utils import AverageAccumulator, VectorAccumulator, accuracy, Progressbar, adjust_learning_rate, get_num_parameters
-from cifar.datasets import get_cifar_data
-from base_code.basis_loss import basisCombinationLoss
+
+def get_model(args):
+
+    model = models.__dict__[args.arch](num_classes=args.num_classes)
+    return model
+
 
 def train(trainloader, model, optimizer, criterion, keys):
     print('Training...')

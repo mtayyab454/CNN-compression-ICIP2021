@@ -1,3 +1,5 @@
+import copy
+
 import torch
 import torch.nn as nn
 
@@ -16,9 +18,37 @@ def trace_model(model):
             basis_channels.append(min(module.out_features, module.in_features))
             layer_type.append('linear')
 
-    return in_channels, out_channels, basis_channels, layer_type
+    num_conv = sum(1 for lt in layer_type if lt == 'conv')
+    num_linear = sum(1 for lt in layer_type if lt == 'linear')
 
-def replace_basisconv2d_with_conv2d(module):
+    return num_conv, num_linear, in_channels, out_channels, basis_channels, layer_type
+
+def get_basis_channels_from_t(model, t):
+
+    assert all(0 <= x <= 1 for x in t), "Values of t must be between 0 and 1"
+
+    in_channels, out_channels, basis_channels = [], [], []
+    for name, module in model.named_modules():
+        if isinstance(module, nn.Conv2d):
+
+            in_channels.append(module.in_channels)
+            out_channels.append(module.out_channels)
+
+            weight = module.weight.data.clone()
+            H = weight.view(weight.shape[0], -1)
+            [u, s, v_t] = torch.svd(H)
+            _, ind = torch.sort(s, descending=True)
+            delta = s[ind] ** 2
+
+            c_sum = torch.cumsum(delta, 0)
+            c_sum = c_sum / c_sum[-1]
+            idx = torch.nonzero(c_sum >= t.pop(0))[0].item()
+
+            basis_channels.append(min(idx+1, module.in_channels * module.kernel_size[0] * module.kernel_size[1]))
+
+    return in_channels, out_channels, basis_channels
+
+def replace_basisconv2d_with_conv2d_(module):
     """
     Recursively replaces all BasisConv2d layers in a module with Conv2d layers.
 
@@ -35,9 +65,13 @@ def replace_basisconv2d_with_conv2d(module):
             # module._modules[name] = basis_layer
         else:
             # Recursively apply the function to the child module
-            replace_conv2d_with_basisconv2d(child_module)
+            replace_basisconv2d_with_conv2d_(child_module)
 
-def replace_conv2d_with_basisconv2d(module, basis_channels_list=None, add_bn_list=None):
+def replace_basisconv2d_with_conv2d(basis_model):
+    model = copy.deepcopy(basis_model)
+    replace_basisconv2d_with_conv2d_(model)
+    return model
+def replace_conv2d_with_basisconv2d_(module, basis_channels_list=None, add_bn_list=None):
     """
     Recursively replaces all Conv2d layers in a module with BasisConv2d layers.
 
@@ -58,7 +92,7 @@ def replace_conv2d_with_basisconv2d(module, basis_channels_list=None, add_bn_lis
             # Replace the Conv2d layer with a BasisConv2d layer
             weight = child_module.weight.data.clone()
             bias = child_module.bias.data.clone() if child_module.bias is not None else None
-            if basis_channels_list is None:
+            if add_bn_list is None:
                 add_bn = False
             else:
                 add_bn = add_bn_list.pop(0)
@@ -81,7 +115,12 @@ def replace_conv2d_with_basisconv2d(module, basis_channels_list=None, add_bn_lis
             # module._modules[name] = basis_layer
         else:
             # Recursively apply the function to the child module
-            replace_conv2d_with_basisconv2d(child_module, basis_channels_list, add_bn_list)
+            replace_conv2d_with_basisconv2d_(child_module, basis_channels_list, add_bn_list)
+
+def replace_conv2d_with_basisconv2d(model, basis_channels_list=None, add_bn_list=None):
+    basis_model = copy.deepcopy(model)
+    replace_conv2d_with_basisconv2d_(basis_model, basis_channels_list, add_bn_list)
+    return basis_model
 
 class BasisConv2d(nn.Module):
     def __init__(self, weight, bias, add_bn, in_channels, basis_channels, out_channels, kernel_size, stride, padding, dilation, groups, sparse_filters=False):
