@@ -3,7 +3,7 @@ import torch.nn as nn
 
 import torchvision.models as models
 
-from basis_layer import replace_conv2d_with_basisconv2d, replace_basisconv2d_with_conv2d, trace_model, get_basis_channels_from_t
+from basis_model import replace_conv2d_with_basisconv2d, replace_basisconv2d_with_conv2d, trace_model, get_basis_channels_from_t, display_stats
 
 if __name__ == '__main__':
     model = models.resnet18(pretrained=True)
@@ -22,3 +22,5 @@ if __name__ == '__main__':
     model_output = model(input_tensor)
     print( (model_output-basis_model_output).abs().sum() )
     print(torch.allclose(model_output, basis_model_output, atol=1e-2))  # True
+
+    display_stats(basis_model, model, 'test', [3, 224, 224])

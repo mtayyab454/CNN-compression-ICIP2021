@@ -8,12 +8,6 @@ import cifar.models as models
 
 from cifar.utils import AverageAccumulator, VectorAccumulator, accuracy, Progressbar, adjust_learning_rate, get_num_parameters
 
-def get_model(args):
-
-    model = models.__dict__[args.arch](num_classes=args.num_classes)
-    return model
-
-
 def train(trainloader, model, optimizer, criterion, keys):
     print('Training...')
     model.train()
