@@ -3,7 +3,7 @@ import copy
 import torch
 import torch.nn as nn
 
-from basis_layer import BasisConv2d
+from .basis_layer import BasisConv2d
 
 def display_stats(basis_model, model, exp_name, input_size):
 

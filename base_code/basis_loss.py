@@ -1,11 +1,11 @@
 import torch
-from base_code.basis_layer import basisConv2d
+from .basis_layer import BasisConv2d
 import torch.nn.functional as F
 import torch.nn as nn
 
-class basisL1Loss(nn.Module):
+class ConvW_L1Loss(nn.Module):
     def __init__(self, skip_1by1=False):
-        super(basisL1Loss, self).__init__()
+        super(ConvW_L1Loss, self).__init__()
         self.skip_1by1 = skip_1by1
 
     def forward(self, basis_model):
@@ -13,10 +13,10 @@ class basisL1Loss(nn.Module):
         # loss_v = []
 
         count = 0
-        for n, m in list(basis_model.named_modules()):
-            if isinstance(m, basisConv2d):
-                if self.skip_1by1 == False or m.org_weight.shape[-1] > 1:
-                    weights = m.coefficients
+        for name, module in list(basis_model.named_modules()):
+            if isinstance(module, BasisConv2d):
+                if self.skip_1by1 == False or module.conv_f.weight.shape[-1] > 1:
+                    weights = module.conv_w.weight.data.clone()
                     curr_loss = weights.abs().mean()
                     loss_m += curr_loss
                     count += 1
@@ -28,23 +28,18 @@ class basisL1Loss(nn.Module):
 
         return loss_m
 
-class basisL2Loss(nn.Module):
+class ConvF_L2Loss(nn.Module):
     def __init__(self, alpha=0.5):
-        super(basisL2Loss, self).__init__()
+        super(ConvF_L2Loss, self).__init__()
         self.alpha = alpha # initilize alpha
 
-    def forward(self, basis_model, alpha=None):
-
-        # can input different alpha when calling the loss function, otherwise initilized value is used.
-        if alpha is None:
-            alpha = self.alpha
-
+    def forward(self, basis_model):
         loss_m = 0
         # loss_v = []
 
-        for n, m in list(basis_model.named_modules()):
-            if isinstance(m, basisConv2d):
-                weights = m.basis_weight.view(m.basis_weight.shape[0], -1).t()
+        for name, module in list(basis_model.named_modules()):
+            if isinstance(module, BasisConv2d):
+                weights = module.conv_f.weight.data.clone().view(module.conv_f.weight.shape[0], -1).t()
                 # Normalize weights
                 weights = F.normalize(weights, 2, 0)
                 Q = weights.shape[1]
@@ -57,7 +52,7 @@ class basisL2Loss(nn.Module):
                 dp_diag = (1 - dot_prod.diag() ** 2).sum()
                 dp_else = (dot_prod.triu(1) ** 2).sum()
 
-                curr_loss = (alpha * dp_diag / Q) + (2 * (1 - alpha)) / (Q * (Q - 1)) * dp_else
+                curr_loss = (self.alpha * dp_diag / Q) + (2 * (1 - self.alpha)) / (Q * (Q - 1)) * dp_else
                 loss_m += curr_loss
                 # loss_v.append(curr_loss.item())
 
@@ -65,40 +60,26 @@ class basisL2Loss(nn.Module):
         # print(loss_c.item(), loss_m.item())
         return loss_m
 
-class basisCombinationLoss(nn.Module):
+class BasisCombinationLoss(nn.Module):
     def __init__(self, w1, w2, skip_1by1, alpha=0.5, ce_reduction='mean'):
-        super(basisCombinationLoss, self).__init__()
-
+        super().__init__()
         self.ce = nn.CrossEntropyLoss(reduction=ce_reduction)
-        self.l1 = basisL1Loss(skip_1by1)
-        self.l2 = basisL2Loss(alpha)
+        self.l1 = ConvW_L1Loss(skip_1by1)
+        self.l2 = ConvF_L2Loss(alpha)
         self.w1 = w1
         self.w2 = w2
 
-    def forward(self, basis_model, outputs, targets, w1=None, w2=None):
-
-        if w1 is None:
-            w1 = self.w1
-        if w2 is None:
-            w2 = self.w2
+    def forward(self, basis_model, outputs, targets):
 
         loss_ce = self.ce(outputs, targets)
+        loss_l1 = torch.zeros(1, device=loss_ce.device)
+        loss_l2 = torch.zeros(1, device=loss_ce.device)
 
-        if w1 > 0:
+        if self.w1 > 0:
             loss_l1 = self.l1(basis_model)
-        else:
-            loss_l1 = torch.FloatTensor([0]).to(loss_ce.device)
-
-        if w2 > 0:
+        if self.w2 > 0:
             loss_l2 = self.l2(basis_model)
-        else:
-            loss_l2 = torch.FloatTensor([0]).to(loss_ce.device)
 
-        # print(loss_l0)
-        # print(loss_l2)
-
-        loss = w1 * loss_l1 + \
-               w2 * loss_l2 + \
-               loss_ce
+        loss = self.w1 * loss_l1 + self.w2 * loss_l2 + loss_ce
 
         return loss, loss_ce, loss_l1, loss_l2

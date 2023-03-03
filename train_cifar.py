@@ -9,12 +9,11 @@ import argparse
 import torch
 import torch.backends.cudnn as cudnn
 import torch.nn.parallel
-from base_code.basis_layer import replace_conv2d_with_basisconv2d
 import cifar.models as models
 from cifar.utils import Logger, create_dir, backup_code
 from cifar.trainer import testing_loop, training_loop
 
-from base_code.basis_layer import replace_conv2d_with_basisconv2d, replace_basisconv2d_with_conv2d, trace_model, get_basis_channels_from_t
+from base_code.basis_model import replace_conv2d_with_basisconv2d, trace_model, get_basis_channels_from_t, display_stats
 
 def str2bool(v):
     if isinstance(v, bool):
@@ -42,14 +41,15 @@ parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet56',
 
 parser.add_argument("--baseline", type=str2bool, nargs='?', const=True, default=False, help="Set true to train the baseline model, without any compression")
 parser.add_argument('-d', '--dataset', default='cifar10', type=str)
+parser.add_argument('--data-path', default='../../data/CIFAR', type=str)
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
 # Compression options
-parser.add_argument('--l1_weight', default=0, type=float)
-parser.add_argument('--l2_weight', default=0.001, type=float)
+parser.add_argument('--l1-weight', default=0, type=float)
+parser.add_argument('--l2-weight', default=0.001, type=float)
 # Add description of compress_rate
-parser.add_argument('--compress_rate', type=str, default='0.50', help='compress rate of each conv')
-parser.add_argument("--add_bn", type=str2bool, nargs='?', const=True, default=True, help="Use batchnorm between basis filters and 1by1 convolutions.")
+parser.add_argument('--compress-rate', type=str, default='0.50', help='compress rate of each conv')
+parser.add_argument("--add-bn", type=str2bool, nargs='?', const=True, default=True, help="Use batchnorm between basis filters and 1by1 convolutions.")
 # Optimization options
 parser.add_argument('--epochs', default=120, type=int, metavar='N',
                     help='number of total epochs to run')
@@ -73,7 +73,7 @@ parser.add_argument('--logs', default='cifar/logs', type=str, metavar='PATH',
                     help='path to save the training logs (default: logs)')
 # Architecture
 # Miscs
-parser.add_argument('--manualSeed', type=int, default=None, help='manual seed')
+parser.add_argument('--manual-seed', type=int, default=None, help='manual seed')
 
 args = parser.parse_args()
 state = {k: v for k, v in args._get_kwargs()}
@@ -96,11 +96,11 @@ print('compress_rate:', args.compress_rate)
 
 
 # Random seed
-if args.manualSeed is None:
-    args.manualSeed = random.randint(1, 10000)
-random.seed(args.manualSeed)
-torch.manual_seed(args.manualSeed)
-torch.cuda.manual_seed_all(args.manualSeed)
+if args.manual_seed is None:
+    args.manual_seed = random.randint(1, 10000)
+random.seed(args.manual_seed)
+torch.manual_seed(args.manual_seed)
+torch.cuda.manual_seed_all(args.manual_seed)
 
 def main():
     print(args)
@@ -120,19 +120,19 @@ def main():
         else:
             args.compress_rate = [args.compress_rate] * num_conv
         _, _, basis_channels = get_basis_channels_from_t(model, args.compress_rate)
+
         basis_model = replace_conv2d_with_basisconv2d(model, basis_channels, [args.add_bn] * num_conv)
 
-        stats = display_stats(basis_model, model, args.arch + '-' + args.dataset)
+        stats = display_stats(basis_model, model, args.arch + '-' + args.dataset, [3, 32, 32])
 
     basis_model.cuda()
-    model.cuda()
 
     logger = Logger(dir_path=args.logs, fname=exp_name,
                     keys=['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss'])
-    logger.one_time({'stats': stats, 'seed':args.manualSeed, 'comments': args.arch + '-' + args.dataset})
+    logger.one_time({'stats': stats, 'seed':args.manual_seed, 'comments': args.arch + '-' + args.dataset})
     logger.set_names(['lr', 'train_stats', 'test_stats'])
 
-    testing_loop(basis_model, args.dataset)
+    testing_loop(basis_model, args)
 
     training_loop(model=basis_model, logger=logger, args=args, save_best=True)
 

@@ -5,8 +5,10 @@ import torch.nn as nn
 import torch.optim as optim
 
 import cifar.models as models
+from cifar.dataset import get_cifar_data
 
-from cifar.utils import AverageAccumulator, VectorAccumulator, accuracy, Progressbar, adjust_learning_rate, get_num_parameters
+from .utils import AverageAccumulator, VectorAccumulator, accuracy, Progressbar, adjust_learning_rate, get_num_parameters
+from base_code.basis_loss import BasisCombinationLoss
 
 def train(trainloader, model, optimizer, criterion, keys):
     print('Training...')
@@ -68,26 +70,26 @@ def test(testloader, model, criterion, keys):
 
     return accumulator.avg
 
-def testing_loop(model, dataset_name):
-    criterion = basisCombinationLoss(0, 0, False)
-    _, testloader, num_classes = get_cifar_data(dataset_name, split='test', batch_size=100, num_workers=0)
+def testing_loop(model, args):
+    criterion = BasisCombinationLoss(0, 0, False)
+    _, testloader, num_classes = get_cifar_data(args.dataset, args.data_path, split='test', batch_size=args.test_batch, num_workers=args.workers)
     test_stats = test(testloader, model, criterion, ['time', 'acc1', 'acc5', 'loss', 'ce_loss', 'l1_loss', 'l2_loss'])
     print('\nTest loss: %.4f \nVal accuracy: %.2f%%' % (test_stats[3], test_stats[1]))
 
 def training_loop(model, logger, args, save_best=False):
 
     if args.baseline is False:
-        criterion = basisCombinationLoss(args.l1_weight, args.l2_weight, False)
+        criterion = BasisCombinationLoss(args.l1_weight, args.l2_weight, False)
     else:
-        criterion = basisCombinationLoss(0, 0, False)
+        criterion = BasisCombinationLoss(0, 0, False)
 
     criterion.cuda()
 
     ###################### Initialization ###################
     lr = args.lr
     # Load data
-    _, trainloader, num_classes = get_cifar_data(args.dataset, split='train', batch_size=args.train_batch, num_workers=args.workers)
-    _, testloader, num_classes = get_cifar_data(args.dataset, split='test', batch_size=args.test_batch, num_workers=args.workers)
+    _, trainloader, num_classes = get_cifar_data(args.dataset, args.data_path, split='train', batch_size=args.train_batch, num_workers=args.workers)
+    _, testloader, num_classes = get_cifar_data(args.dataset, args.data_path, split='test', batch_size=args.test_batch, num_workers=args.workers)
 
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=args.momentum, weight_decay=args.weight_decay)
     num_param = get_num_parameters(model)
