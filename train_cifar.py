@@ -42,13 +42,14 @@ parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet56',
 parser.add_argument("--baseline", type=str2bool, nargs='?', const=True, default=False, help="Set true to train the baseline model, without any compression")
 parser.add_argument('-d', '--dataset', default='cifar10', type=str)
 parser.add_argument('--data-path', default='../../data/CIFAR', type=str)
+parser.add_argument('--pretrained', default='cifar/pretrained_weights/resnet56_cifar10.pth', type=str)
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
 # Compression options
 parser.add_argument('--l1-weight', default=0, type=float)
 parser.add_argument('--l2-weight', default=0.001, type=float)
 # Add description of compress_rate
-parser.add_argument('--compress-rate', type=str, default='0.50', help='compress rate of each conv')
+parser.add_argument('--compress-rate', type=str, default='0.80', help='compress rate of each conv')
 parser.add_argument("--add-bn", type=str2bool, nargs='?', const=True, default=True, help="Use batchnorm between basis filters and 1by1 convolutions.")
 # Optimization options
 parser.add_argument('--epochs', default=120, type=int, metavar='N',
@@ -109,6 +110,14 @@ def main():
     create_dir([checkpoint_dir, args.logs])
 
     model = models.__dict__[args.arch](num_classes=args.num_classes)
+    if args.pretrained is not '':
+        state_dict = torch.load(args.pretrained)
+
+        # new_state_dict = {}
+        # for key in state_dict.keys():
+        #     new_key = key.replace("module.", "")
+        #     new_state_dict[new_key] = state_dict[key]
+        model.load_state_dict(state_dict)
 
     if args.baseline is True:
         basis_model = model

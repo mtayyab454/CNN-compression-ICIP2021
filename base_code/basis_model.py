@@ -217,16 +217,16 @@ class ModelStats:
         self.total_params += layer_params
 
         self.info['org_flops'].append(layer_flops)
-        self.info['basis_flops'].append(None)
+        self.info['basis_flops'].append(0)
         self.info['org_params'].append(layer_params)
-        self.info['basis_params'].append(None)
+        self.info['basis_params'].append(0)
         self.info['input_size'].append(input_size)
         self.info['output_size'].append(output_size)
         self.info['layer_name'].append(module._get_name())
-        self.info['in_channels'].append(None)
-        self.info['out_channels'].append(None)
-        self.info['basis_channels'].append(None)
-        self.info['kernel_size'].append(None)
+        self.info['in_channels'].append(0)
+        self.info['out_channels'].append(0)
+        self.info['basis_channels'].append(0)
+        self.info['kernel_size'].append(0)
 
     def basisconv2d_hook(self, module, input, output):
         input_size = input[0].size()
