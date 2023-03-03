@@ -49,7 +49,7 @@ parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
 parser.add_argument('--l1-weight', default=0, type=float)
 parser.add_argument('--l2-weight', default=0.001, type=float)
 # Add description of compress_rate
-parser.add_argument('--compress-rate', type=str, default='0.80', help='compress rate of each conv')
+parser.add_argument('--compress-rate', type=str, default='0.63', help='compress rate of each conv')
 parser.add_argument("--add-bn", type=str2bool, nargs='?', const=True, default=True, help="Use batchnorm between basis filters and 1by1 convolutions.")
 # Optimization options
 parser.add_argument('--epochs', default=120, type=int, metavar='N',

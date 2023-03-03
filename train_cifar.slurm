@@ -42,13 +42,15 @@ source activate pytorch-gpu
 echo
 #time python run_cifar.py --jobid $SLURM_JOB_ID
 time python train_cifar.py \
---jobid wideresnet28x10_baseline1 \
---arch wideresnet28x10 \
+--jobid resnet56_test \
+--arch resnet56 \
 --dataset cifar10 \
---epochs 200 \
---schedule 60 120 160 \
---lr 0.1 \
---gamma 0.2
+--compress-rate 0.63 \
+--l2-weight 0.001 \
+--add-bn True \
+--epochs 120 \
+--schedule 30 60 90 \
+--lr 0.01
 # python -u trainer.py  --arch=resnet56  --save-dir=checkpoints/$SLURM_JOB_ID
 echo
 
