@@ -24,9 +24,9 @@ Following commands can be used to reproduce the results presented in the paper.
 
 ##### 1. Resnet56
 
-| Flops         | Parameters      | Accuracy |
-|---------------|-----------------|----------|
-|89.80M(64.22%) | 0.32M(62.97%)   | 92.71%   | 
+| Flops          | Parameters    | Accuracy |
+|----------------|---------------|----------|
+| 90.08M(64.11%) | 0.31M(63.96%) | 92.95%   | 
 
 ```shell
 python python train_cifar.py \

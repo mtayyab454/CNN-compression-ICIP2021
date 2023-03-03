@@ -223,8 +223,8 @@ class ModelStats:
         self.info['input_size'].append(input_size)
         self.info['output_size'].append(output_size)
         self.info['layer_name'].append(module._get_name())
-        self.info['in_channels'].append(0)
-        self.info['out_channels'].append(0)
+        self.info['in_channels'].append(module.in_features)
+        self.info['out_channels'].append(module.out_features)
         self.info['basis_channels'].append(0)
         self.info['kernel_size'].append(0)
 
@@ -240,10 +240,10 @@ class ModelStats:
         filter_mul = module.conv_f.kernel_size[0] * module.conv_f.kernel_size[1] * in_channels
         filter_add = filter_mul
 
-        org_mul_num = output_size[0] * output_size[1] * (filter_mul + filter_add) * out_channels
+        org_mul_num = output_size[2] * output_size[3] * (filter_mul + filter_add) * out_channels
 
-        basisconv_mul_num = output_size[0] * output_size[1] * ((filter_mul + filter_add)) * basis_channels
-        proj_mul_num = output_size[0] * output_size[1] * (basis_channels + basis_channels) * out_channels
+        basisconv_mul_num = output_size[2] * output_size[3] * ((filter_mul + filter_add)) * basis_channels
+        proj_mul_num = output_size[2] * output_size[3] * (basis_channels + basis_channels) * out_channels
 
         layer_flops = basisconv_mul_num+proj_mul_num
         layer_params = sum(p.numel() for p in module.parameters())
