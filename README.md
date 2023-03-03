@@ -29,13 +29,13 @@ Following commands can be used to reproduce the results presented in the paper.
 |89.80M(64.22%) | 0.32M(62.97%)   | 92.71%   | 
 
 ```shell
-python run_cifar.py \
+python python train_cifar.py \
 --jobid resnet56_test \
 --arch resnet56 \
 --dataset cifar10 \
---compress_rate :[6,4,4,6,4,4,4,4,4,4,4,4,4,13,4,10,6,4,4,12,18,16,4,15,4,16,4,12,7,13,4,15,4,18,4,12,4,32,26,36,16,32,13,29,23,32,16,36,10,23,13,20,10,13,7] \
---l2_weight 0.001 \
---add_bn True \
+--compress-rate 0.63 \
+--l2-weight 0.001 \
+--add-bn True \
 --epochs 120 \
 --schedule 30 60 90 \
 --lr 0.01

@@ -42,7 +42,7 @@ source activate my-pytorch
 echo
 #time python run_cifar.py --jobid $SLURM_JOB_ID
 time python train_cifar.py \
---jobid resnet56_test \
+--jobid $SLURM_JOB_ID \
 --arch resnet56 \
 --dataset cifar10 \
 --compress-rate 0.63 \
