@@ -104,6 +104,7 @@ torch.manual_seed(args.manual_seed)
 torch.cuda.manual_seed_all(args.manual_seed)
 
 def main():
+    print(torch.__version__)
     print(args)
     exp_name = args.jobid + '_' + args.arch
     checkpoint_dir = os.path.join(args.checkpoint, exp_name)

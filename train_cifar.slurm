@@ -32,7 +32,7 @@ nvidia-smi topo -m
 echo
 
 # Activate the GPU version of Pytorch
-source activate pytorch-gpu
+source activate my-pytorch
 
 # OR, instead:  Activate the non-GPU version of TensorFlow
 #source activate tensorflow
