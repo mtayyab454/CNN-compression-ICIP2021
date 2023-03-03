@@ -79,7 +79,7 @@ def testing_loop(model, args):
 def training_loop(model, logger, args, save_best=False):
 
     if args.baseline is False:
-        criterion = BasisCombinationLoss(args.l1_weight, args.l2_weight, False)
+        criterion = BasisCombinationLoss(args.l1_w, args.ortho_w, False)
     else:
         criterion = BasisCombinationLoss(0, 0, False)
 

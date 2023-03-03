@@ -28,9 +28,9 @@ class ConvW_L1Loss(nn.Module):
 
         return loss_m
 
-class ConvF_L2Loss(nn.Module):
+class ConvF_OrthoLoss(nn.Module):
     def __init__(self, alpha=0.5):
-        super(ConvF_L2Loss, self).__init__()
+        super(ConvF_OrthoLoss, self).__init__()
         self.alpha = alpha # initilize alpha
 
     def forward(self, basis_model):
@@ -61,13 +61,13 @@ class ConvF_L2Loss(nn.Module):
         return loss_m
 
 class BasisCombinationLoss(nn.Module):
-    def __init__(self, w1, w2, skip_1by1, alpha=0.5, ce_reduction='mean'):
+    def __init__(self, l1_w, ortho_w, skip_1by1, alpha=0.5, ce_reduction='mean'):
         super().__init__()
         self.ce = nn.CrossEntropyLoss(reduction=ce_reduction)
         self.l1 = ConvW_L1Loss(skip_1by1)
-        self.l2 = ConvF_L2Loss(alpha)
-        self.w1 = w1
-        self.w2 = w2
+        self.l2 = ConvF_OrthoLoss(alpha)
+        self.l1_w = l1_w
+        self.ortho_w = ortho_w
 
     def forward(self, basis_model, outputs, targets):
 
@@ -75,11 +75,11 @@ class BasisCombinationLoss(nn.Module):
         loss_l1 = torch.zeros(1, device=loss_ce.device)
         loss_l2 = torch.zeros(1, device=loss_ce.device)
 
-        if self.w1 > 0:
+        if self.l1_w > 0:
             loss_l1 = self.l1(basis_model)
-        if self.w2 > 0:
+        if self.ortho_w > 0:
             loss_l2 = self.l2(basis_model)
 
-        loss = self.w1 * loss_l1 + self.w2 * loss_l2 + loss_ce
+        loss = self.l1_w * loss_l1 + self.ortho_w * loss_l2 + loss_ce
 
         return loss, loss_ce, loss_l1, loss_l2
