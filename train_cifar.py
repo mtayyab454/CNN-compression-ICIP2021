@@ -13,7 +13,7 @@ import cifar.models as models
 from cifar.utils import Logger, create_dir, backup_code
 from cifar.trainer import testing_loop, training_loop
 
-from base_code.basis_model import replace_conv2d_with_basisconv2d, trace_model, get_basis_channels_from_t, display_stats
+from base_code.basis_helpers import replace_conv2d_with_basisconv2d, trace_model, get_basis_channels_from_t, display_stats
 
 def str2bool(v):
     if isinstance(v, bool):

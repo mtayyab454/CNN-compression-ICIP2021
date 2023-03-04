@@ -3,7 +3,7 @@ import torch.nn as nn
 
 import torchvision.models as models
 
-from basis_model import replace_conv2d_with_basisconv2d, replace_basisconv2d_with_conv2d, trace_model, get_basis_channels_from_t, display_stats
+from basis_helpers import replace_conv2d_with_basisconv2d, replace_basisconv2d_with_conv2d, trace_model, get_basis_channels_from_t, display_stats
 
 if __name__ == '__main__':
     model = models.resnet18(pretrained=True)
