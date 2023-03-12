@@ -48,7 +48,9 @@ class BasisConv2d(nn.Module):
 
 
         F = v_t[:, 0:self.conv_f.out_channels].t()
-        w = torch.mm(F, H.t()).t()
+        # w = torch.mm(F, H.t()).t()
+        w = torch.mm(H, F.t())
+        print(w.shape)
 
         return F, w
 
